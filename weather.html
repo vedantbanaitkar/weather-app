@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #c6ebc5;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      margin: 10px;
+      padding: 20px;
+      background-color: #7aa2e3; /* bluish background */
+      border-radius: 10px;
+    }
+    .search {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .search input {
+      border: 0;
+      outline: 0;
+      background: #97e7e1;
+      color: #2c7865;
+      padding: 10px 25px;
+      width: 35vw;
+      height: 40px;
+      border-radius: 30px;
+      font-size: 18px;
+      margin-right: 20px;
+    }
+    .search button {
+      border: 0;
+      outline: 0;
+      background: #97e7e1;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+    .search button img {
+      width: 16px;
+    }
+    .weather-details {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .city-info {
+      text-align: center;
+    }
+    .weather-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .weather-icon {
+      width: 100px; 
+    }
+    .condition-text {
+      font-size: 18px;
+    }
+    .temperature {
+      font-size: 48px;
+      color: #fff; /* White font color */
+    }
+    .temperature-range {
+      display: flex;
+      align-items: center;
+    }
+    .range-label {
+      margin: 0 10px;
+    }
+    .range-value {
+      font-size: 20px;
+      color: #fff; /* White font color */
+    }
+    .vertical-line {
+      border-left: 1px solid #fff; /* White vertical line */
+      height: 50px; 
+      margin: 0 10px;
+    }
+    .additional-info {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .info-item {
+      text-align: center;
+      margin: 0 20px;
+    }
+    .info-icon {
+      width: 40px; 
+    }
+    .forecast-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .forecast-card {
+      background-color: #c6ebc5; /* Greenish background */
+      padding: 20px; /* Increase padding for better spacing */
+      border-radius: 10px;
+      width: 250px; /* Adjust width as needed */
+      margin-right: 20px; /* Add right margin for spacing between cards */
+    }
+    .forecast-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3) /* Light shadow on hover */
+}
+
+    .forecast-date {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .forecast-icon {
+      width: 50px;
+    }
+    .forecast-temp {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    .line{
+      color: black;
+      width: 1120px;
+    }
+    .temperature{
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="search">
+      <input type="text" placeholder="Enter City Name" id="cityInput" spellcheck="false">
+      <button onclick="searchWeatherFromInput()"><img src="images/search.png" alt="Search"></button>
+    </div>
+    <div class="weather-details">
+      <div class="city-info">
+        <h2 class="city-name">City Name, Country Code</h2>
+      </div>
+      <div class="weather-info">
+        <img src="images/weather-condition.png" alt="Weather Condition" class="weather-icon">
+        <p class="condition-text">Weather Condition</p>
+        <h1 class="temperature">Temperature</h1>
+        <div class="temperature-range">
+          <div class="range-label">Min</div>
+          <div class="min-temperature">Min Temp</div>
+          <div class="vertical-line"></div>
+          <div class="range-label">Max</div>
+          <div class="max-temperature">Max Temp</div>
+        </div>
+        <div class="additional-info">
+          <div class="info-item">
+            <img src="images/humidity.png" alt="Humidity" class="info-icon">
+            <p class="humidity">Humidity</p>
+          </div>
+          <div class="info-item">
+            <img src="images/wind-speed.png" alt="Wind Speed" class="info-icon">
+            <p class="wind-speed">Wind Speed</p>
+          </div>
+          <div class="info-item">
+            <img src="images/wind-direction.png" alt="Wind Direction" class="info-icon">
+            <p class="wind-direction">Wind Direction</p>
+          </div>
+          <div class="info-item">
+            <img src="images/precipitation.png" alt="Precipitation" class="info-icon">
+            <p class="precipitation">Precipitation</p>
+          </div>
+        </div>
+    </div>
+    <hr class="line"> <!-- Small horizontal line -->
+    <div class="forecast-container">
+      <!-- Forecast card 1 -->
+      <div class="forecast-card">
+        <p class="forecast-date">Date</p>
+        <img src="forecast-icon.png" alt="Weather Icon" class="forecast-icon">
+        <div class="forecast-details">
+          <p class="temperature">Temperature</p>
+          <div class="temperature-range">
+            <p class="min-temperature">Min Temp</p>
+            <p class="max-temperature">Max Temp</p>
+          </div>
+          <p class="humidity">Humidity</p>
+          <p class="wind-speed">Wind Speed</p>
+          <p class="wind-direction">Wind Direction</p>
+        </div>
+</div>
+      <!-- Forecast card 2 -->
+      <div class="forecast-card">
+        <p class="forecast-date">Date</p>
+        <img src="forecast-icon.png" alt="Weather Icon" class="forecast-icon">
+        <div class="forecast-details">
+          <p class="temperature">Temperature</p>
+          <div class="temperature-range">
+            <p class="min-temperature">Min Temp</p>
+            <p class="max-temperature">Max Temp</p>
+          </div>
+          <p class="humidity">Humidity</p>
+          <p class="wind-speed">Wind Speed</p>
+          <p class="wind-direction">Wind Direction</p>
+        </div>
+      </div>
+      <!-- Forecast card 3 -->
+      <div class="forecast-card">
+        <p class="forecast-date">Date</p>
+        <img src="forecast-icon.png" alt="Weather Icon" class="forecast-icon">
+        <div class="forecast-details">
+          <p class="temperature">Temperature</p>
+          <div class="temperature-range">
+            <p class="min-temperature">Min Temp</p>
+            <p class="max-temperature">Max Temp</p>
+          </div>
+          <p class="humidity">Humidity</p>
+          <p class="wind-speed">Wind Speed</p>
+          <p class="wind-direction">Wind Direction</p>
+        </div>
+      </div>
+      <!-- Forecast card 4 -->
+      <div class="forecast-card">
+        <p class="forecast-date">Date</p>
+        <img src="forecast-icon.png" alt="Weather Icon" class="forecast-icon">
+        <div class="forecast-details">
+          <p class="temperature">Temperature</p>
+          <div class="temperature-range">
+            <p class="min-temperature">Min Temp</p>
+            <p class="max-temperature">Max Temp</p>
+          </div>
+          <p class="humidity">Humidity</p>
+          <p class="wind-speed">Wind Speed</p>
+          <p class="wind-direction">Wind Direction</p>
+        </div>
+      </div>
+      <!-- Forecast card 5 -->
+      <div class="forecast-card">
+        <p class="forecast-date">Date</p>
+        <img src="forecast-icon.png" alt="Weather Icon" class="forecast-icon">
+        <div class="forecast-details">
+          <p class="temperature">Temperature</p>
+          <div class="temperature-range">
+            <p class="min-temperature">Min Temp</p>
+            <p class="max-temperature">Max Temp</p>
+          </div>
+          <p class="humidity">Humidity</p>
+          <p class="wind-speed">Wind Speed</p>
+          <p class="wind-direction">Wind Direction</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let lat = 0;
+    let lng = 0;
+    async function searchWeather(cityName) {
+        const apiKey = '1e9c398347e6ef79f8f40e36c69f24e5'; // Your OpenWeatherMap API key
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=${apiKey}`;
+        
+        try {
+          const response = await fetch(apiUrl);
+          const data = await response.json();
+          console.log(data);
+          console.log("here");
+            
+            // Update weather information on the page
+            document.querySelector('.city-name').textContent = `${data.name}, ${data.sys.country}`;
+            document.querySelector('.weather-icon').src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+            document.querySelector('.condition-text').textContent = data.weather[0].description;
+            document.querySelector('.temperature').textContent = `${Math.round(data.main.temp)}°C`;
+            document.querySelector('.min-temperature').textContent = `${Math.round(data.main.temp_min)}°C`; 
+            document.querySelector('.max-temperature').textContent = `${Math.round(data.main.temp_max)}°C`; 
+            document.querySelector('.humidity').textContent = `${data.main.humidity}%`; 
+            document.querySelector('.wind-speed').textContent = `${data.wind.speed} m/s`; 
+            document.querySelector('.wind-direction').textContent = getWindDirection(data.wind.deg); 
+            document.querySelector('.precipitation').textContent = 'N/A'; // need additional API or calculation for precipitation data
+            const { lat, lon } = await getCityCoordinates(cityName);
+
+            fetchForecastData(lat, lon);
+            console.log("here1");
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+            // Show error message or handle error scenario
+        }
+    }
+
+    function searchWeatherFromInput() {
+        const cityName = document.getElementById('cityInput').value.trim();
+        if (cityName !== '') {
+            searchWeather(cityName);
+        }
+    }
+
+    window.onload = function() {
+    // Parse URL parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const cityName = urlParams.get('city');
+    searchWeather(cityName);
+
+    // Now you can use cityName in your weather page logic
+    // For example, you can use it to fetch weather data for that city
+  };
+
+  async function fetchForecastData(latitude, longitude) {
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=1e9c398347e6ef79f8f40e36c69f24e5`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      console.log(data);
+
+      // Extract and display forecast data
+      displayForecastData(data);
+    } catch (error) {
+      console.error('Error fetching forecast data:', error);
+      // Handle error scenario
+    }
+  }
+
+  function displayForecastData(data) {
+    // Loop through forecast data and populate forecast cards
+    for (let i = 0; i < 5; i++) {
+        const forecast = data.list[i * 8 + 7]; // Increment by 8 to get data for every 24 hours (3-hour interval * 8)
+        const forecastCard = document.querySelectorAll('.forecast-card')[i];
+
+        // Update forecast date
+        const forecastDate = new Date(forecast.dt * 1000);
+        forecastCard.querySelector('.forecast-date').textContent = forecastDate.toDateString();
+
+        // Update weather icon
+        const weatherIcon = forecast.weather[0].icon;
+        forecastCard.querySelector('.forecast-icon').src = `http://openweathermap.org/img/wn/${weatherIcon}.png`;
+
+        // Update temperature
+        const temperature = Math.round(forecast.main.temp);
+        forecastCard.querySelector('.temperature').textContent = `${temperature}°C`;
+
+        // Update min/max temperatures
+        const minTemperature = Math.round(forecast.main.temp_min);
+        forecastCard.querySelector('.min-temperature').textContent = `Min: ${minTemperature}°C`;
+
+        const maxTemperature = Math.round(forecast.main.temp_max);
+        forecastCard.querySelector('.max-temperature').textContent = `Max: ${maxTemperature}°C`;
+
+        // Update humidity
+        const humidity = forecast.main.humidity;
+        forecastCard.querySelector('.humidity').textContent = `Humidity: ${humidity}%`;
+
+        // Update wind speed
+        const windSpeed = forecast.wind.speed;
+        forecastCard.querySelector('.wind-speed').textContent = `Wind Speed: ${windSpeed} m/s`;
+
+        // Update wind direction
+        const windDirection = getWindDirection(forecast.wind.deg);
+        forecastCard.querySelector('.wind-direction').textContent = `Wind Direction: ${windDirection}`;
+    }
+}
+
+
+
+  function getWindDirection(degree) {
+    // Function to convert wind degree to direction
+    console.log("degreee: ",degree);
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    const index = Math.floor((degree % 360) / 45);
+    return directions[index];
+  }
+
+
+  async function getCityCoordinates(cityName) {
+    const apiKey = '1e9c398347e6ef79f8f40e36c69f24e5'; // Replace 'YOUR_OPENWEATHERMAP_API_KEY' with your actual API key
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if (data.cod === 200) { // Check if the response is successful
+            const { lon, lat } = data.coord;
+            console.log("Latitude:", lat, "Longitude:", lon);
+            return { lat, lon };
+        } else {
+            throw new Error('Unable to retrieve coordinates for the city.');
+        }
+    } catch (error) {
+        console.error('Error fetching city coordinates:', error);
+        return null;
+    }
+}
+
+  fetchForecastData(lat, lng);
+
+  </script>
+
+  
+</body>
+</html>
